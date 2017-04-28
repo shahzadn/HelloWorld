@@ -23,28 +23,66 @@ android {
     }
 }
 
+checkstyle {
+    toolVersion = '7.6'
+    ignoreFailures = true
+    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+}
+
+findbugs {
+    toolVersion '3.0.1'
+    ignoreFailures = true
+}
+
+pmd {
+    toolVersion '5.5.4'
+    ignoreFailures = true
+    ruleSetFiles = files("$project.rootDir/config/pmd/ruleset.xml")
+    rulePriority = 3
+}
+
+task customCheckstyle(type: Checkstyle) {
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    classpath = files()
+    reports {
+        xml.enabled = true
+        xml.destination = "$project.buildDir/reports/checkstyle/checkstyle.xml"
+        html.enabled = true
+        html.destination = "$project.buildDir/reports/checkstyle/checkstyle.html"
+    }
+}
+
 task customFindbugs(type: FindBugs) {
-    ignoreFailures = false
-    effort = "max"
-    reportLevel = "low"
-    classes = files("$project.buildDir/intermediates/classes")
-
-    // Use this only if you want exclude some errors
-    excludeFilter = file("$rootProject.rootDir/config/findbugs/exclude.xml")
-
+    effort = "default"
+    reportLevel = "medium"
+    excludeFilter = new File("${project.rootDir}/config/findbugs/filters.xml")
+    classes = files("${project.rootDir}/app/build/intermediates/classes")
     source = fileTree('src/main/java/')
     classpath = files()
 
     reports {
-        xml.enabled = false
-        xml.withMessages = true
-        html.enabled = !xml.isEnabled()
-        xml.destination "$project.buildDir/outputs/findbugs/findbugs-output.xml"
-        html.destination "$project.buildDir/outputs/findbugs/findbugs-output.html"
+        xml.enabled = true
+        html.enabled = false
+        xml.destination = "$project.buildDir/reports/findbugs/findbugs.xml"
+
     }
 }
 
-build.dependsOn customFindbugs
+task customPmd(type: Pmd) {
+    source = fileTree('src/main/java/')
+
+    reports {
+        xml.enabled = true
+        xml.destination = "$project.buildDir/reports/pmd/pmd.xml"
+        html.enabled = true
+        html.destination = "$project.buildDir/reports/pmd/pmd.html"
+    }
+}
+
+build.dependsOn customCheckstyle, customFindbugs, customPmd
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
