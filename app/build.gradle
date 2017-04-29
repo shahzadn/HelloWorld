@@ -26,7 +26,7 @@ android {
 checkstyle {
     toolVersion = '7.6'
     ignoreFailures = true
-    configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+    configFile = new File("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
 findbugs {
@@ -83,7 +83,6 @@ task customPmd(type: Pmd) {
 
 build.dependsOn customCheckstyle, customFindbugs, customPmd
 
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -92,5 +91,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    compile 'testfairy:testfairy-android-sdk:1.4.16@aar'
+    compile 'testfairy:testfairy-android-sdk:1.+@aar'
 }
