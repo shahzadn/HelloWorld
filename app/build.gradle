@@ -81,7 +81,7 @@ task customPmd(type: Pmd) {
     }
 }
 
-build.dependsOn customCheckstyle, customFindbugs, customPmd
+check.dependsOn customCheckstyle, customFindbugs, customPmd
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
