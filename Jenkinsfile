@@ -18,8 +18,8 @@ node {
 
   //build your gradle flavor, passes the current build number as a parameter to gradle
   //sh "./gradlew clean assemble${flavor}Debug -PBUILD_NUMBER=${env.BUILD_NUMBER}"
-  
-  sh "./gradlew clean assembleDebug -PBUILD_NUMBER=${env.BUILD_NUMBER}"
+
+  sh "./gradlew build"
 
   stage 'Stage Archive'
   //tell Jenkins to archive the apks
