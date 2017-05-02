@@ -3,15 +3,15 @@ node {
 
     def currentPath = '/tmp/'
     //echo "Current Path ${currentPath}"
-    env.ANDROID_HOME = currentPath + 'android-sdk-linux'
+    def file = currentPath + 'android-sdk-linux/android'
 
-	echo "ANDROID_HOME=${env.ANDROID_HOME}"
+	echo "ANDROID_HOME=${file}"
 	
     stage 'Environment'
     // sh 'java -version'
 
     stage 'Check Android SDK'
-    if (fileExists(env.ANDROID_HOME)) {
+    if (fileExists(file)) {
         echo 'Android SDK already exists'
         env.ANDROID_HOME = '/tmp/android-sdk-linux/';
     } else {
