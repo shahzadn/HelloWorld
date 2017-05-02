@@ -2,7 +2,7 @@
 node {
 
     def currentPath = pwd()
-
+    echo "Current Path ${currentPath}"
     env.ANDROID_HOME = currentPath + '/../.android-sdk'
 
     stage 'Environment'
