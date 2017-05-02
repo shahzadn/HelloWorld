@@ -12,6 +12,7 @@ node {
     if (fileExists(file)) {
         echo 'Android SDK already exists'
         env.ANDROID_HOME = '/tmp/android-sdk-linux/';
+        sh '(while sleep 3; do echo "y"; done) | /tmp/android-sdk-linux/tools/android update sdk -u'
     } else {
             stage 'Setup Android SDK'
 
