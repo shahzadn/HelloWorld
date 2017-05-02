@@ -2,7 +2,7 @@
 node {
 
     def currentPath = '/tmp/'
-    def file = currentPath + 'android-sdk-linux/android'
+    def file = currentPath + 'android-sdk-linux/android.sh'
 
 	echo "ANDROID_HOME=${file}"
 	
@@ -15,12 +15,12 @@ node {
     } else {
             stage 'Setup Android SDK'
 
-            
             sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
             sh 'tar -xvf android-sdk.tgz'
             sh 'rm -rf /tmp/android-sdk-linux'
             sh 'mv android-sdk-linux /tmp/'
             env.ANDROID_HOME = '/tmp/android-sdk-linux/'
+            sh 'android update sdk --no-ui'
 
             //mkdir "${env.ANDROID_HOME}/licenses" || true
             //sh 'echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${env.ANDROID_HOME}/licenses/android-sdk-license"'
