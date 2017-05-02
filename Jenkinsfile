@@ -10,6 +10,7 @@ node {
 
     stage 'Check Android SDK'
     if (fileExists(env.ANDROID_HOME)) {
+        sh 'android update sdk --no-ui'
         echo 'Android SDK already exists'
     } else {
             stage 'Setup Android SDK'
