@@ -2,13 +2,13 @@
 node {
 
     def currentPath = '/tmp/'
-    echo "Current Path ${currentPath}"
-    env.ANDROID_HOME = currentPath + 'android-sdk-linux/.android-sdk'
+    //echo "Current Path ${currentPath}"
+    env.ANDROID_HOME = currentPath + 'android-sdk-linux'
 
 	echo "ANDROID_HOME=${env.ANDROID_HOME}"
 	
     stage 'Environment'
-    sh 'java -version'
+    // sh 'java -version'
 
     stage 'Check Android SDK'
     if (fileExists(env.ANDROID_HOME)) {
@@ -18,6 +18,7 @@ node {
             stage 'Setup Android SDK'
             sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
             sh 'tar -xvf android-sdk.tgz'
+            sh 'rm -rf /tmp/android-sdk-linux'
             sh 'mv android-sdk-linux /tmp/'
             env.ANDROID_HOME = '/tmp/android-sdk-linux/';
 			sh 'cd /tmp/android-sdk-linux/tools'
