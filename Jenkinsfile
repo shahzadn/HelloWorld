@@ -14,6 +14,8 @@ node {
         env.ANDROID_HOME = '/tmp/android-sdk-linux/';
     } else {
             stage 'Setup Android SDK'
+
+            
             sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
             sh 'tar -xvf android-sdk.tgz'
             sh 'rm -rf /tmp/android-sdk-linux'
