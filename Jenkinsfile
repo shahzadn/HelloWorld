@@ -16,6 +16,7 @@ node {
             sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
             sh 'tar -xvf android-sdk.tgz'
             sh 'mv android-sdk-linux "$ANDROID_HOME"'
+            sh 'android update sdk --no-ui'
     }
 
   // Mark the code checkout 'stage'....
