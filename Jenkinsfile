@@ -1,23 +1,22 @@
 "#!groovy"
 node {
 
-    def currentPath = pwd()
+    //def currentPath = pwd()
+    def currentPath = "/usr/local/"
     echo "Current Path ${currentPath}"
-    env.ANDROID_HOME = currentPath + '/../.android-sdk'
+    env.ANDROID_HOME = currentPath + '/android-sdk-linux/.android-sdk'
 
     stage 'Environment'
     sh 'java -version'
 
     stage 'Check Android SDK'
     if (fileExists(env.ANDROID_HOME)) {
-        sh 'android update sdk --no-ui'
         echo 'Android SDK already exists'
     } else {
             stage 'Setup Android SDK'
             sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
             sh 'tar -xvf android-sdk.tgz'
             sh 'mv android-sdk-linux "$ANDROID_HOME"'
-            sh 'android update sdk --no-ui'
     }
 
   // Mark the code checkout 'stage'....
