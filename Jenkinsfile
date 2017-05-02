@@ -21,9 +21,15 @@ node {
             sh 'rm -rf /tmp/android-sdk-linux'
             sh 'mv android-sdk-linux /tmp/'
             env.ANDROID_HOME = '/tmp/android-sdk-linux/';
-			sh 'cd /tmp/android-sdk-linux/tools'
-			def currentUrl = pwd()
-			echo "CurrentPath ${currentUrl}"
+
+			sh 'mkdir "$ANDROID_SDK/licenses" || true'
+            sh 'echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_SDK/licenses/android-sdk-license"'
+            sh  'echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_SDK/licenses/android-sdk-preview-license"'
+
+
+			//sh 'cd /tmp/android-sdk-linux/tools'
+			//def currentUrl = pwd()
+			//echo "CurrentPath ${currentUrl}"
 //			# install all sdk packages
 //			sh './android update sdk --no-ui'
 
