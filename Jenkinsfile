@@ -20,7 +20,7 @@ node {
             sh 'tar -xvf android-sdk.tgz'
             sh 'rm -rf /tmp/android-sdk-linux'
             sh 'mv android-sdk-linux /tmp/'
-            env.ANDROID_HOME = '/tmp/android-sdk-linux/';
+            env.ANDROID_HOME = '/tmp/android-sdk-linux/'
 
 			sh 'mkdir "$ANDROID_SDK/licenses" || true'
             sh 'echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_SDK/licenses/android-sdk-license"'
@@ -32,6 +32,7 @@ node {
 			//echo "CurrentPath ${currentUrl}"
 //			# install all sdk packages
 //			sh './android update sdk --no-ui'
+//          sh './tmp/android-sdk-linux/android update sdk --no-ui'
 
     }
 
