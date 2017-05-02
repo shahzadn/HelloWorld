@@ -12,7 +12,7 @@ node {
     if (fileExists(file)) {
         echo 'Android SDK already exists'
         env.ANDROID_HOME = '/tmp/android-sdk-linux/';
-        sh '(while sleep 3; do echo "y"; done) | /tmp/android-sdk-linux/tools/android update sdk -u'
+        sh 'yes | /tmp/android-sdk-linux/tools/android update sdk --no-ui'
     } else {
             stage 'Setup Android SDK'
 
@@ -22,7 +22,7 @@ node {
             sh 'mv android-sdk-linux /tmp/'
             env.ANDROID_HOME = '/tmp/android-sdk-linux/'
             //sh '/tmp/android-sdk-linux/tools/android update sdk --no-ui'
-            sh 'yes | /tmp/android-sdk-linux/tools/android update sdk -u'
+            sh 'yes | /tmp/android-sdk-linux/tools/android update sdk --no-ui'
             //mkdir "${env.ANDROID_HOME}/licenses" || true
             //sh 'echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${env.ANDROID_HOME}/licenses/android-sdk-license"'
             //sh  'echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "${env.ANDROID_HOME}/licenses/android-sdk-preview-license"'
