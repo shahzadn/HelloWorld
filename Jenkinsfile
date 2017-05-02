@@ -2,10 +2,12 @@
 node {
 
     //def currentPath = pwd()
-    def currentPath = "/usr/local/"
+    def currentPath = '/usr/local/'
     echo "Current Path ${currentPath}"
     env.ANDROID_HOME = currentPath + 'android-sdk-linux/.android-sdk'
 
+	echo "ANDROID_HOME=${env.ANDROID_HOME}"
+	
     stage 'Environment'
     sh 'java -version'
 
@@ -16,7 +18,12 @@ node {
             stage 'Setup Android SDK'
             sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
             sh 'tar -xvf android-sdk.tgz'
-            sh 'mv android-sdk-linux ${currentPath}'
+            sh 'mv android-sdk-linux /usr/local/'
+			sh 'cd /usr/local/android-sdk-linux/tools'
+			echo pwd()
+//			# install all sdk packages
+//			sh './android update sdk --no-ui'
+
     }
 
   // Mark the code checkout 'stage'....
