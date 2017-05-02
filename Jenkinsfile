@@ -4,7 +4,7 @@ node {
     //def currentPath = pwd()
     def currentPath = "/usr/local/"
     echo "Current Path ${currentPath}"
-    env.ANDROID_HOME = currentPath + '/android-sdk-linux/.android-sdk'
+    env.ANDROID_HOME = currentPath + 'android-sdk-linux/.android-sdk'
 
     stage 'Environment'
     sh 'java -version'
