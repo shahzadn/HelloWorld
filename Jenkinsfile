@@ -48,7 +48,7 @@ node {
   //sh "./gradlew clean assemble${flavor}Debug -PBUILD_NUMBER=${env.BUILD_NUMBER}"
 
   sh "chmod +x gradlew"
-  sh "./gradlew build"
+  sh "./gradlew clean build"
 
   stage 'Stage Archive'
   //tell Jenkins to archive the apks
