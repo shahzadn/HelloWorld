@@ -20,7 +20,7 @@ node {
             sh 'rm -rf /tmp/android-sdk-linux'
             sh 'mv android-sdk-linux /tmp/'
             env.ANDROID_HOME = '/tmp/android-sdk-linux/'
-            sh 'android update sdk --no-ui'
+            sh '/tmp/android-sdk-linux/android update sdk --no-ui'
 
             //mkdir "${env.ANDROID_HOME}/licenses" || true
             //sh 'echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${env.ANDROID_HOME}/licenses/android-sdk-license"'
