@@ -2,13 +2,11 @@
 node {
 
     def currentPath = '/tmp/'
-    //echo "Current Path ${currentPath}"
     def file = currentPath + 'android-sdk-linux/android'
 
 	echo "ANDROID_HOME=${file}"
 	
     stage 'Environment'
-    // sh 'java -version'
 
     stage 'Check Android SDK'
     if (fileExists(file)) {
@@ -22,16 +20,16 @@ node {
             sh 'mv android-sdk-linux /tmp/'
             env.ANDROID_HOME = '/tmp/android-sdk-linux/'
 
-//			sh 'mkdir "${env.ANDROID_HOME}/licenses" || true'
-//          sh 'echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_SDK/licenses/android-sdk-license"'
-//          sh  'echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_SDK/licenses/android-sdk-preview-license"'
+            //mkdir "${env.ANDROID_HOME}/licenses" || true
+            //sh 'echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${env.ANDROID_HOME}/licenses/android-sdk-license"'
+            //sh  'echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "${env.ANDROID_HOME}/licenses/android-sdk-preview-license"'
 
 			//sh 'cd /tmp/android-sdk-linux/tools'
 			//def currentUrl = pwd()
 			//echo "CurrentPath ${currentUrl}"
 //			# install all sdk packages
 //			sh './android update sdk --no-ui'
-            sh './tmp/android-sdk-linux/android update sdk --no-ui'
+//            sh './tmp/android-sdk-linux/android update sdk --no-ui'
 
     }
 
