@@ -1,6 +1,28 @@
 "#!groovy"
 node {
 
+    def currentPath = '/tmp/'
+    def file = currentPath + 'android-sdk-linux/tools/android'
+
+	echo "ANDROID_HOME=${file}"
+
+    stage 'Environment'
+
+    stage 'Check Android SDK'
+    if (fileExists(file)) {
+        echo 'Android SDK already exists'
+        env.ANDROID_HOME = '/tmp/android-sdk-linux/';
+        sh '/tmp/android-sdk-linux/tools/android update sdk --no-ui --filter build-tools-24.0.2,android-24,extra-android-m2repository'
+    } else {
+            stage 'Setup Android SDK'
+            sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
+            sh 'tar -xvf android-sdk.tgz'
+            sh 'rm -rf /tmp/android-sdk-linux'
+            sh 'mv android-sdk-linux /tmp/'
+            env.ANDROID_HOME = '/tmp/android-sdk-linux/'
+            sh '/tmp/android-sdk-linux/tools/android update sdk --no-ui --filter build-tools-24.0.2,android-24,extra-android-m2repository'
+    }
+
   // Mark the code checkout 'stage'....
   stage 'Stage Checkout'
 
