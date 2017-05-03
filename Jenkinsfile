@@ -1,6 +1,14 @@
 "#!groovy"
 node {
 
+
+    // Mark the code checkout 'stage'....
+    stage 'Stage Checkout'
+
+    // Checkout code from repository and update any submodules
+    checkout scm
+    sh 'git submodule update --init'
+
     def currentPath = '/home/jenkins/'
     def file = currentPath + 'android-sdk-linux/tools/android'
 
@@ -12,23 +20,23 @@ node {
     if (fileExists(file)) {
         echo 'Android SDK already exists'
         env.ANDROID_HOME = '/home/jenkins/android-sdk-linux/';
+        sh 'mv licenses.zip /home/jenkins/android-sdk-linux/'
+        sh 'unzip /home/jenkins/android-sdk-linux/licenses.zip -d /home/jenkins/android-sdk-linux/'
         sh '(while sleep 1; do echo "y"; done) | /home/jenkins/android-sdk-linux/tools/android update sdk --no-ui --filter build-tools-24.0.2,android-24,extra-android-m2repository'
+        sh 'touch /home/jenkins/.android/repositories.cfg'
     } else {
-            stage 'Setup Android SDK'
-            sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
-            sh 'tar -xvf android-sdk.tgz'
-            sh 'rm -rf /home/jenkins/android-sdk-linux'
-            sh 'mv android-sdk-linux /home/jenkins/'
-            env.ANDROID_HOME = '/home/jenkins/android-sdk-linux/'
-            sh '(while sleep 1; do echo "y"; done) | /home/jenkins/android-sdk-linux/tools/android update sdk --no-ui --filter build-tools-24.0.2,android-24,extra-android-m2repository'
+        stage 'Setup Android SDK'
+        sh 'curl --fail --output android-sdk.tgz http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz'
+        sh 'tar -xvf android-sdk.tgz'
+        sh 'rm -rf /home/jenkins/android-sdk-linux'
+        sh 'mv android-sdk-linux /home/jenkins/'
+        env.ANDROID_HOME = '/home/jenkins/android-sdk-linux/'
+
+        sh 'mv licenses.zip /home/jenkins/android-sdk-linux/'
+        sh 'unzip /home/jenkins/android-sdk-linux/licenses.zip -d /home/jenkins/android-sdk-linux/'
+        sh '(while sleep 1; do echo "y"; done) | /home/jenkins/android-sdk-linux/tools/android update sdk --no-ui --filter build-tools-24.0.2,android-24,extra-android-m2repository'
+        sh 'touch /home/jenkins/.android/repositories.cfg'
     }
-
-  // Mark the code checkout 'stage'....
-  stage 'Stage Checkout'
-
-  // Checkout code from repository and update any submodules
-  checkout scm
-  sh 'git submodule update --init'  
 
   stage 'Stage Build'
 
