@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ClientA</string>
+    <string name="hello_world_i_am_here">Hello World from Client A!</string>
+</resources>
